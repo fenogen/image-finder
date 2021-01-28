@@ -35,7 +35,8 @@ body {
 
 .project-flex .item {
   margin-left: 15px; /*Для калькуляции*/
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 15px;
   flex-basis: calc(100% / 4 - 15px); /*Для калькуляции*/
   border: 1px solid #eeeeee;
   transition-duration: 250ms;
@@ -67,4 +68,17 @@ body {
   padding-bottom: 0px;
   color: limegreen;
   font-size: 12px;
+}
+
+.button-box {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.btn {
+  display: inline;
+}
+
+.hiden {
+  display: none;
 }

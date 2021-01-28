@@ -23,12 +23,14 @@
 
       <form class="search-form" id="search-form">
         <input id="name-input" type="text" class="form-control" name="query" autocomplete="off" placeholder="Search images..." />
-        <button data-search="search" class="btn btn-primary" type="button">
+        <ul id="js-search" class="list project-flex"></ul>
+        <div class="button-box">
+          <button data-search="search" class="btn btn-primary hiden" type="button">
           <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
           <span class="" role="status" aria-hidden="true"></span>
           Поиск
         </button>
-        <button data-active="active" class="btn btn-primary" type="button">
+        <button data-active="active" class="btn btn-primary hiden" type="button">
           <!-- <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> -->
           <span class="" role="status" aria-hidden="true"></span>
           Loading...
@@ -36,7 +38,7 @@
       </form>
 <!-- Шаблонная вставка -->
     <!-- <div class="js-search"></div> -->
-    <ul id="js-search" class="list project-flex"></ul>
+    <!-- <ul id="js-search" class="list project-flex"></ul> -->
 
   </div>
   </body>

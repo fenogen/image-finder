@@ -24,8 +24,10 @@ var debounce = require('lodash.debounce');
 // ---------------------------------------------------------------------
 
 console.log('Hello');
-const input = document.querySelector('#name-input');
+
 const formRef = document.querySelector('#search-form');
+const input = document.querySelector('#name-input');
+const btnRef = document.querySelector('button[data-search="search"]');
 
 const fnFetch = (event) => {
     console.log(event.target.value);
@@ -36,12 +38,12 @@ const fnFetch = (event) => {
 
 formRef.addEventListener('input', debounce(fnFetch, 1000));
 
-function fnFetchServer() {
+function fnFetchServer(search) {
     const key = '20057586-194248245024f7fdf6233c620';
     const page = 1;
     const onPage = 12;
-    const search = 'yellow+flower';
-    const url = `https://pixabay.com/api/?image_type=photo&key=${key}}&page=${page}&per_page=${onPage}&orientation=horizontal&q=${search}`;
+    // const search = 'yellow+flower';
+    const url = `https://pixabay.com/api/?image_type=photo&key=${key}&page=${page}&per_page=${onPage}&orientation=horizontal&q=${search}`;
     return fetch(url)
         .then(responce => responce.json())
         .then(data => fnTemplate(data))
@@ -52,11 +54,14 @@ function fnFetchServer() {
 const fnTemplate = (data) => {
     console.log(data);
     console.log(data.hits);
+
     const boxRef = document.querySelector('#js-search');
     const template = listTemplete(data.hits);
-    boxRef.insertAdjacentHTML('beforeend', template);
 
-    // boxRef.innerHTML = '';
+    boxRef.innerHTML = '';
+
+    boxRef.insertAdjacentHTML('beforeend', template);
+    btnRef.classList.remove("hiden");
     return;
 }
 
