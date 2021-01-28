@@ -65,6 +65,8 @@ body {
 
 .stats-item {
   padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding-bottom: 0px;
   color: limegreen;
   font-size: 12px;
@@ -81,4 +83,8 @@ body {
 
 .hiden {
   display: none;
+}
+
+.box {
+  padding-top: 30px;
 }

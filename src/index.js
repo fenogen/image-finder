@@ -25,45 +25,89 @@ var debounce = require('lodash.debounce');
 
 console.log('Hello');
 
+const API = {
+    key: '20057586-194248245024f7fdf6233c620',
+    page: 1,
+    onPage: 12,
+}
+const { key, onPage } = API;
+
+let page = 1;
+let first;
+let second;
+
 const formRef = document.querySelector('#search-form');
 const input = document.querySelector('#name-input');
 const btnRef = document.querySelector('button[data-search="search"]');
+const boxRef = document.querySelector('#js-search');
 
-const fnFetch = (event) => {
-    console.log(event.target.value);
-    console.log(input.value);
-    console.log('Hello----2');
+function fnFetch(event) { 
+    event.preventDefault();
+    // event.currentTarget.element.query.value
+    // first = input.value;
+    // console.log(first);
+    btnRef.removeEventListener('click', fnClick);
+
+    const form = event.currentTarget;
+    console.log(form);
+
+    // test = input.value.length;
     fnFetchServer(input.value);
 }
 
-formRef.addEventListener('input', debounce(fnFetch, 1000));
+formRef.addEventListener('submit', fnFetch);
+// ------ Заменили импут
 
 function fnFetchServer(search) {
-    const key = '20057586-194248245024f7fdf6233c620';
-    const page = 1;
-    const onPage = 12;
-    // const search = 'yellow+flower';
     const url = `https://pixabay.com/api/?image_type=photo&key=${key}&page=${page}&per_page=${onPage}&orientation=horizontal&q=${search}`;
-    return fetch(url)
-        .then(responce => responce.json())
-        .then(data => fnTemplate(data))
-        .catch(() => console.warn('Ошибка связи с сервером'));
+        return fetch(url)
+            .then(responce => responce.json())
+            .then(data => fnTemplate(data))
+            .catch(() => console.warn('Ошибка связи с сервером'));
+
 };
 
 
-const fnTemplate = (data) => {
-    console.log(data);
-    console.log(data.hits);
-
-    const boxRef = document.querySelector('#js-search');
+function fnTemplate(data) {
+    second = input.value;
+    console.log(second);
+    // console.log(data);
+    // console.log(data.hits);
+    // console.log(input.value.length);
     const template = listTemplete(data.hits);
 
-    boxRef.innerHTML = '';
+    // if()
 
+    // boxRef.innerHTML = '';
     boxRef.insertAdjacentHTML('beforeend', template);
     btnRef.classList.remove("hiden");
+    btnRef.addEventListener('click', fnClick);
+    if (second === first) { 
+        console.log("URA");
+    }
+    //     console.log('TEST');
+    //     // console.log(data);
+    // console.log(data.hits);
+    // console.dir(data.total);
+    //     // console.log(input.value.length);
+    //     // console.log(input.value)
+    //     // console.dir(input);
+    // }
+    console.log('ok');
     return;
 }
+
+const fnClick = () => {
+        page =  page + 1;
+        fnFetch();
+}
+    
+const fnDelete = () => {
+    page = page;
+    fnFetch();
+    }
+
+
 
 
 // const fnTemplate = (data) => {
