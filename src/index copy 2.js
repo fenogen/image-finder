@@ -33,51 +33,53 @@ const API = {
 const { key, onPage } = API;
 
 let page = 1;
-let search;
 
 const formRef = document.querySelector('#search-form');
 const input = document.querySelector('#name-input');
 const btnRef = document.querySelector('button[data-search="search"]');
 const boxRef = document.querySelector('#js-search');
 
-function fnSubmit(event) {
-    if (input.value.length > 0) {
-        event.preventDefault();
-        search = input.value;
-        // const form = event.currentTarget;
-        // form.reset();
-        boxRef.innerHTML = '';
-        page = 1;
-        fnFetchServer(search);
-    }
-    return;
+function fnFetch(event) { 
+    event.preventDefault();
+    const form = event.currentTarget;
+    // boxRef.innerHTML = '';
+    // form.reset();
+    fnFetchServer(input.value);
+    console.log();
+
+
+    // console.dir(event.currentTarget);
+    // let form = event.currentTarget;
+    // console.log(typeof form);
+    // searchValue = input.value;
+    // console.log(input.value);
+    // fnFetchServer(searchValue);
+    // length = input.value.length;
+    // console.log(length + "#1");
 }
 
-formRef.addEventListener('submit', fnSubmit);
+formRef.addEventListener('submit', fnFetch);
 
 function fnFetchServer(search) {
     const url = `https://pixabay.com/api/?image_type=photo&key=${key}&page=${page}&per_page=${onPage}&orientation=horizontal&q=${search}`;
+    console.log(search);
         return fetch(url)
             .then(responce => responce.json())
-            .then(data => fnTemplate(data))
-            .catch(() => console.warn('Ошибка связи с сервером'));
+            .then(data => {
+                const template = listTemplete(data.hits);
+                // boxRef.innerHTML = '';
+                boxRef.insertAdjacentHTML('beforeend', template);
+                btnRef.classList.remove("hiden");
+                page = page + 1;
+                console.log(search + "YES");
+                if (searchValue !== input.value) {
+                    console.log('hi');
+                }
+                return;
+            }
+        )
+        .catch(() => console.warn('Ошибка связи с сервером'));
 };
-
-function fnTemplate(data) {
-    const template = listTemplete(data.hits);
-    boxRef.insertAdjacentHTML('beforeend', template);
-    btnRef.classList.remove("hiden");
-}
-
-
-function fnClick() {
-    page = page + 1;
-    fnFetchServer(search);
-}
-
-btnRef.addEventListener('click', fnClick); 
-
-
 
 
 // function fnTemplate(data) {

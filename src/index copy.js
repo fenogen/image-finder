@@ -33,27 +33,29 @@ const API = {
 const { key, onPage } = API;
 
 let page = 1;
-let search;
+let first;
+let second;
 
 const formRef = document.querySelector('#search-form');
 const input = document.querySelector('#name-input');
 const btnRef = document.querySelector('button[data-search="search"]');
 const boxRef = document.querySelector('#js-search');
 
-function fnSubmit(event) {
-    if (input.value.length > 0) {
-        event.preventDefault();
-        search = input.value;
-        // const form = event.currentTarget;
-        // form.reset();
-        boxRef.innerHTML = '';
-        page = 1;
-        fnFetchServer(search);
-    }
-    return;
+function fnFetch(event) { 
+    event.preventDefault();
+    // first = input.value;
+    // console.log(first);
+    // btnRef.removeEventListener('click', fnClick);
+
+    const form = event.currentTarget;
+    console.log(form);
+
+    // test = input.value.length;
+    fnFetchServer(input.value);
 }
 
-formRef.addEventListener('submit', fnSubmit);
+formRef.addEventListener('submit', fnFetch);
+// ------ Заменили импут
 
 function fnFetchServer(search) {
     const url = `https://pixabay.com/api/?image_type=photo&key=${key}&page=${page}&per_page=${onPage}&orientation=horizontal&q=${search}`;
@@ -61,51 +63,44 @@ function fnFetchServer(search) {
             .then(responce => responce.json())
             .then(data => fnTemplate(data))
             .catch(() => console.warn('Ошибка связи с сервером'));
+
 };
 
+
 function fnTemplate(data) {
+    // console.log(data);
+    // console.log(data.hits);
+    // console.log(input.value.length);
     const template = listTemplete(data.hits);
+
+    // if()
+
+    // boxRef.innerHTML = '';
     boxRef.insertAdjacentHTML('beforeend', template);
     btnRef.classList.remove("hiden");
+    btnRef.addEventListener('click', fnClick);       //----- был клик
+
+    //     console.log('TEST');
+    //     // console.log(data);
+    // console.log(data.hits);
+    // console.dir(data.total);
+    //     // console.log(input.value.length);
+    //     // console.log(input.value)
+    //     // console.dir(input);
+    // }
+    console.log('ok');
+    return;
 }
 
-
-function fnClick() {
-    page = page + 1;
-    fnFetchServer(search);
+const fnClick = () => {
+        page =  page + 1;
+        fnFetch();
 }
-
-btnRef.addEventListener('click', fnClick); 
-
-
-
-
-// function fnTemplate(data) {
-//     // console.log(data);
-//     // console.log(data.hits);
-//     const template = listTemplete(data.hits);
-//     console.log(input.value);
-
-//     // boxRef.innerHTML = '';
-//     boxRef.insertAdjacentHTML('beforeend', template);
-//     btnRef.classList.remove("hiden");
-//     page = page + 1;
-//     // console.log(search);
-//     if (searchValue !== input.value) {
-//         console.log('hi');
-//     }
-//     return;
-// }
-
-// const fnClick = () => {
-//     page = page + 1;
-//     fnFetch();
-// }
     
-// const fnDelete = () => {
-//     page = page;
-//     fnFetch();
-//     }
+const fnDelete = () => {
+    page = page;
+    fnFetch();
+    }
 
 
 
