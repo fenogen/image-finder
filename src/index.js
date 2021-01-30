@@ -10,7 +10,7 @@ import "@pnotify/core/dist/PNotify.css";                     //---> Импорт
 import '@pnotify/core/dist/BrightTheme.css';                 //---> Импортирт цветовой гаммы
 import 'material-design-icons/iconfont/material-icons.css'; //---> Импортирт иконок
 
-// ---------------------------->
+// ----------------------------> Импорт плагина модального окна - basicLightbox
 
 import "basiclightbox/dist/basicLightbox.min.css"
 import * as basicLightbox from 'basiclightbox'
@@ -39,7 +39,7 @@ const REF = {
     btn: document.querySelector('button[data-search="search"]'),
     btnOpen: document.querySelector('button[data-search="open"]'),
     box: document.querySelector('#js-search'),
-    card: document.querySelector('.card'),
+    size: document.querySelector('.card'),
 }
 
 // ----------------------------> Ф-я поиска:
@@ -70,6 +70,10 @@ REF.btn.addEventListener('click', fnClick);
 REF.btnOpen.addEventListener('click', () => {
     const instance = basicLightbox.create(`/<img width="1400" height="900" src="https://placehold.it/1400x900">`)
     instance.show();
+}
+);
+REF.box.addEventListener('click', (event) => {
+    console.dir(event.currentTarget); //////////////////////!!!!!!!!!!!!!   Достучатся до ребенка -> ребенок -> ссылка TODO:
 }
 );
 
