@@ -12,6 +12,10 @@
   </head>
   <body>
     <div class="container box">
+
+                              <!-- <div class="modal">
+                                <p>I'm a modal created from a DOM element/node.</p>
+                              </div> -->
 <!-- Поле поиска -->
       <form class="search-form" id="search-form">
         <input id="name-input" type="text" class="form-control" name="query" autocomplete="off" placeholder="Search images..." />
@@ -22,6 +26,12 @@
           <span class="" role="status" aria-hidden="true"></span>
           Load more
         </button>
+          <button data-search="open" class="btn btn-primary" type="button">
+            Modal-open
+          </button>
+          <button data-search="close" class="btn btn-primary" type="button">
+            Modal-close
+          </button>
         </div>
         <!-- <button data-active="active" class="btn btn-primary hiden" type="button">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

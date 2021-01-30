@@ -10,6 +10,16 @@ import "@pnotify/core/dist/PNotify.css";                     //---> Импорт
 import '@pnotify/core/dist/BrightTheme.css';                 //---> Импортирт цветовой гаммы
 import 'material-design-icons/iconfont/material-icons.css'; //---> Импортирт иконок
 
+// ---------------------------->
+
+// const basicLightbox = require('basiclightbox')
+// import "basiclightbox/src/styles/main.scss"
+// import {basicLightbox} from '../node_modules/basiclightbox/src/scripts/main.js';
+
+
+// import * as basicLightbox from 'basiclightbox'
+
+
 // ----------------------------> Изменили дефолтные настройки уведомлений (PNotify)
 const PNotify = {
     title: 'Info',
@@ -31,8 +41,24 @@ const REF = {
     form: document.querySelector('#search-form'),
     input: document.querySelector('#name-input'),
     btn: document.querySelector('button[data-search="search"]'),
+    btnOpen: document.querySelector('button[data-search="open"]'),
+    btnClose: document.querySelector('button[data-search="close"]'),
     box: document.querySelector('#js-search'),
 }
+
+const instance = basicLightbox.create(`
+/<img width="1400" height="900" src="https://placehold.it/1400x900">`,
+    { closable: true })
+        
+REF.btnOpen.addEventListener('click', () => {
+instance.show();
+}
+);
+
+REF.btnClose.addEventListener('click', () => {
+instance.close();
+}
+);
 
 // ----------------------------> Ф-я поиска:
 
@@ -58,7 +84,7 @@ function fnClick() {
 // ----------------------------> События:
 
 REF.form.addEventListener('submit', fnSubmit);
-REF.btn.addEventListener('click', fnClick); 
+REF.btn.addEventListener('click', fnClick);
 
 // ----------------------------> Ф-я запроса на сервер:
 
