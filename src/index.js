@@ -12,12 +12,8 @@ import 'material-design-icons/iconfont/material-icons.css'; //---> Импорт�
 
 // ---------------------------->
 
-// const basicLightbox = require('basiclightbox')
-// import "basiclightbox/src/styles/main.scss"
-// import {basicLightbox} from '../node_modules/basiclightbox/src/scripts/main.js';
-
-
-// import * as basicLightbox from 'basiclightbox'
+import "basiclightbox/dist/basicLightbox.min.css"
+import * as basicLightbox from 'basiclightbox'
 
 
 // ----------------------------> Изменили дефолтные настройки уведомлений (PNotify)
@@ -42,23 +38,9 @@ const REF = {
     input: document.querySelector('#name-input'),
     btn: document.querySelector('button[data-search="search"]'),
     btnOpen: document.querySelector('button[data-search="open"]'),
-    btnClose: document.querySelector('button[data-search="close"]'),
     box: document.querySelector('#js-search'),
+    card: document.querySelector('.card'),
 }
-
-const instance = basicLightbox.create(`
-/<img width="1400" height="900" src="https://placehold.it/1400x900">`,
-    { closable: true })
-        
-REF.btnOpen.addEventListener('click', () => {
-instance.show();
-}
-);
-
-REF.btnClose.addEventListener('click', () => {
-instance.close();
-}
-);
 
 // ----------------------------> Ф-я поиска:
 
@@ -85,6 +67,11 @@ function fnClick() {
 
 REF.form.addEventListener('submit', fnSubmit);
 REF.btn.addEventListener('click', fnClick);
+REF.btnOpen.addEventListener('click', () => {
+    const instance = basicLightbox.create(`/<img width="1400" height="900" src="https://placehold.it/1400x900">`)
+    instance.show();
+}
+);
 
 // ----------------------------> Ф-я запроса на сервер:
 

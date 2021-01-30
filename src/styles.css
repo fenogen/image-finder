@@ -1,12 +1,12 @@
-/* html {
-  box-sizing: border-box;
-} */
-
 html {
+  box-sizing: border-box;
+}
+
+/* html {
   width: 100%;
   height: 100%;
   font-family: sans-serif;
-}
+} */
 
 *,
 *::before,
@@ -14,7 +14,7 @@ html {
   box-sizing: inherit;
 }
 
-/* body {
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,9 +24,9 @@ html {
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   background-color: #fff;
   color: #212121;
-} */
+}
 
-body {
+/* body {
   display: flex;
   align-items: center;
   align-content: center;
@@ -36,7 +36,7 @@ body {
   margin: 0;
   color: white;
   text-align: center;
-}
+} */
 
 div.classNames {
   background: #2875ed;
