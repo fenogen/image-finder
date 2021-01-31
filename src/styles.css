@@ -65,6 +65,7 @@ h1 {
 .photo {
   height: 170px;
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 .stats-item {
