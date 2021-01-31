@@ -18,7 +18,7 @@ import * as basicLightbox from 'basiclightbox'
 // ----------------------------> Изменили дефолтные настройки уведомлений (PNotify)
 const PNotify = {
     title: 'Info',
-    delay: 1500,          //---> Удаляется автоматически
+    delay: 5000,          //---> Удаляется автоматически
     sticker: false,       //---> Удаляет стиккер
     closerHover: false,   //---> Видно иконку закрытия
 }
