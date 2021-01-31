@@ -2,12 +2,6 @@ html {
   box-sizing: border-box;
 }
 
-/* html {
-  width: 100%;
-  height: 100%;
-  font-family: sans-serif;
-} */
-
 *,
 *::before,
 *::after {
@@ -26,20 +20,8 @@ body {
   color: #212121;
 }
 
-/* body {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  min-height: 100%;
-  margin: 0;
-  color: white;
-  text-align: center;
-} */
-
-div.classNames {
-  background: #2875ed;
+h1 {
+  margin-bottom: 50px;
 }
 
 .list {
@@ -101,6 +83,7 @@ div.classNames {
 
 .btn {
   display: inline;
+  margin-top: 20px;
 }
 
 .hiden {

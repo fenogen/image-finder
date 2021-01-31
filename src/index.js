@@ -15,7 +15,6 @@ import 'material-design-icons/iconfont/material-icons.css'; //---> Импорт�
 import "basiclightbox/dist/basicLightbox.min.css"
 import * as basicLightbox from 'basiclightbox'
 
-
 // ----------------------------> Изменили дефолтные настройки уведомлений (PNotify)
 const PNotify = {
     title: 'Info',
@@ -51,6 +50,7 @@ function fnSubmit(event) {
         // const form = event.currentTarget // form.reset();
         REF.box.innerHTML = '';
         API.page = 1;
+        REF.btn.disabled = false;
         fnFetchServer(API.search);
     }
     return;
@@ -63,19 +63,21 @@ function fnClick() {
     fnFetchServer(API.search);
 }
 
+// ----------------------------> Ф-я открытия модального окна:
+function fnPhotoLarge(event) {
+    if (event.target.tagName === 'IMG') {
+        const largePhoto = event.target.dataset.url;
+        const instance = basicLightbox.create(`/<img width="" height="" src=${largePhoto}>`)
+        instance.show();
+    }
+    return;
+}
+
 // ----------------------------> События:
 
 REF.form.addEventListener('submit', fnSubmit);
 REF.btn.addEventListener('click', fnClick);
-REF.btnOpen.addEventListener('click', () => {
-    const instance = basicLightbox.create(`/<img width="1400" height="900" src="https://placehold.it/1400x900">`)
-    instance.show();
-}
-);
-REF.box.addEventListener('click', (event) => {
-    console.dir(event.currentTarget); //////////////////////!!!!!!!!!!!!!   Достучатся до ребенка -> ребенок -> ссылка TODO:
-}
-);
+REF.box.addEventListener('click', fnPhotoLarge);
 
 // ----------------------------> Ф-я запроса на сервер:
 
@@ -84,11 +86,24 @@ function fnFetchServer() {
         return fetch(url)
             .then(responce => responce.json())
             .then(data => fnTemplate(data))
-            .catch(() => console.warn('Ошибка связи с сервером'));
+            .catch(() => console.warn('Server communication error'));
 };
 
 // ----------------------------> Ф-я создания DOM-дерева:
 function fnTemplate(data) {
+    if (API.page === 1) {
+        success({
+            ...PNotify,
+            text: `Search results ${data.total} photos`,
+        });
+    }
+    if (data.hits.length === 0) {
+        REF.btn.disabled = true;
+        error({
+        ...PNotify,
+            text: 'Upon your request all the pictures shown',
+        });
+    }
     const template = listTemplete(data.hits);
     REF.box.insertAdjacentHTML('beforeend', template);
     REF.btn.classList.remove("hiden");
@@ -96,50 +111,5 @@ function fnTemplate(data) {
         top: document.documentElement.offsetHeight,
         left: 100,
         behavior: 'smooth'
-    });
+    })
 }
-
-
-// const fnTemplate = (data) => {
-//     console.log(data);
-//     const boxRef = document.querySelector('.js-search');
-//     boxRef.innerHTML = '';
-    
-//     if (data.length > 10) {
-//         info({
-//             ...PNotify,
-//             text: 'Результат поиска > 10 стран. Введите более точное название страны.',
-//         });
-//         return;
-//     }
-//     if (data.length === 1) {
-//         const template = cardTemplete(data);
-//         boxRef.insertAdjacentHTML('beforeend', template);
-//         success({
-//             ...PNotify,
-//             text: `По вашему запросу найдена ${data.length} страна`,
-//         });
-//         return;
-//     }
-//     if (data.length <= 10 && data.length > 2) {
-//         const template = listTemplete(data);
-//         boxRef.insertAdjacentHTML('beforeend', template);
-//         notice({
-//             ...PNotify,
-//             text: `По вашему запросу найдено ${data.length} стран`,
-//         });
-//         return;
-//     }
-
-//     error({
-//         ...PNotify,
-//         text: 'По вашему запросу ничего не найдено.',
-//     });
-    
-//     return;
-// }
-
-
-
-
-
